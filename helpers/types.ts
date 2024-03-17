@@ -10,6 +10,7 @@ export enum eTenderly {
 
 export type eNetwork =
   | eEthereumNetwork
+  | eEtherlinkNetwork
   | ePolygonNetwork
   | eXDaiNetwork
   | eAvalancheNetwork
@@ -43,6 +44,10 @@ export enum eEthereumNetwork {
   rinkeby = "rinkeby",
   goerli = "goerli",
   sepolia = "sepolia",
+}
+
+export enum eEtherlinkNetwork {
+  etherlinkTest = "etherlinkTest"
 }
 
 export enum eBaseNetwork {
@@ -446,6 +451,10 @@ export interface iEthereumParamsPerNetwork<T> {
   [eEthereumNetwork.ropsten]: T;
   [eEthereumNetwork.main]: T;
   [eEthereumNetwork.tenderly]: T;
+}
+
+export interface iEtherlinkParamsPernetwork<T> {
+  [eEtherlinkNetwork.etherlinkTest]: T;
 }
 
 export interface iPolygonParamsPerNetwork<T> {

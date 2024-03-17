@@ -38,6 +38,7 @@ const func: DeployFunction = async function ({
     process.env.FORK ? process.env.FORK : hre.network.name
   ) as eNetwork;
 
+  hre.config.networks[network].live = true; // FIXME: move to config
   console.log("Live network:", !!hre.config.networks[network].live);
 
   if (isProductionMarket(poolConfig)) {

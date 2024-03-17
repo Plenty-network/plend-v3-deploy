@@ -74,7 +74,7 @@ export const initReservesByHelper = async (
   )) as any as Pool;
 
   // CHUNK CONFIGURATION
-  const initChunks = 3;
+  const initChunks = 1;
 
   // Initialize variables for future reserves initialization
   let reserveTokens: string[] = [];
@@ -171,6 +171,17 @@ export const initReservesByHelper = async (
     reserveSymbols.push(symbol);
   }
 
+  const proxyArtifact = await hre.deployments.get(POOL_CONFIGURATOR_PROXY_ID);
+  const configuratorArtifact = await hre.deployments.get(
+    POOL_CONFIGURATOR_IMPL_ID
+  );
+  const configurator = (
+    await hre.ethers.getContractAt(
+      configuratorArtifact.abi,
+      proxyArtifact.address
+    )
+  ).connect(await hre.ethers.getSigner(admin)) as PoolConfigurator;
+
   for (let i = 0; i < reserveSymbols.length; i++) {
     let aTokenToUse: string;
     if (aTokenType[reserveSymbols[i]] === "generic") {
@@ -179,7 +190,7 @@ export const initReservesByHelper = async (
       aTokenToUse = delegationAwareATokenImplementationAddress;
     }
 
-    initInputParams.push({
+    const reserveParams = {
       aTokenImpl: aTokenToUse,
       stableDebtTokenImpl: stableDebtTokenImplementationAddress,
       variableDebtTokenImpl: variableDebtTokenImplementationAddress,
@@ -196,23 +207,32 @@ export const initReservesByHelper = async (
       stableDebtTokenName: `Aave ${stableDebtTokenNamePrefix} Stable Debt ${reserveSymbols[i]}`,
       stableDebtTokenSymbol: `stableDebt${symbolPrefix}${reserveSymbols[i]}`,
       params: "0x10",
-    });
+    };
+
+    // FIXME: initTokenProxy fails
+    // const aTokenTx = await waitForTx(
+    //   await configurator.initTokenProxy(aTokenToUse, reserveParams)
+    // );
+    // const stableDebtTokenTx = await waitForTx(
+    //   await configurator.initTokenProxy(stableDebtTokenImplementationAddress, reserveParams)
+    // );
+    // const variableDebtTokenTx = await waitForTx(
+    //   await configurator.initTokenProxy(variableDebtTokenImplementationAddress, reserveParams)
+    // );
+
+    // console.log('aTokenTx: ', aTokenTx);
+    // console.log('aTokenTx!.events: ',  aTokenTx!.events![0].args!.proxy);
+
+    // reserveParams.aTokenImpl = aTokenTx!.events![0].args!.proxy;
+    // reserveParams.stableDebtTokenImpl = stableDebtTokenTx!.events![0].args!.proxy;
+    // reserveParams.variableDebtTokenImpl = variableDebtTokenTx!.events![0].args!.proxy;
+
+    initInputParams.push(reserveParams);
   }
 
   // Deploy init reserves per chunks
   const chunkedSymbols = chunk(reserveSymbols, initChunks);
   const chunkedInitInputParams = chunk(initInputParams, initChunks);
-
-  const proxyArtifact = await hre.deployments.get(POOL_CONFIGURATOR_PROXY_ID);
-  const configuratorArtifact = await hre.deployments.get(
-    POOL_CONFIGURATOR_IMPL_ID
-  );
-  const configurator = (
-    await hre.ethers.getContractAt(
-      configuratorArtifact.abi,
-      proxyArtifact.address
-    )
-  ).connect(await hre.ethers.getSigner(admin)) as PoolConfigurator;
 
   console.log(
     `- Reserves initialization in ${chunkedInitInputParams.length} txs`
@@ -381,7 +401,7 @@ export const configureReservesByHelper = async (
     );
 
     // Deploy init per chunks
-    const enableChunks = 20;
+    const enableChunks = 1;
     const chunkedSymbols = chunk(symbols, enableChunks);
     const chunkedInputParams = chunk(inputParams, enableChunks);
     const poolConfiguratorAddress = await addressProvider.getPoolConfigurator();

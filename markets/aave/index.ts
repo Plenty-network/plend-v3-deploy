@@ -1,4 +1,4 @@
-import { eOptimismNetwork } from "./../../helpers/types";
+import { eEtherlinkNetwork, eOptimismNetwork } from "./../../helpers/types";
 import { ZERO_ADDRESS } from "../../helpers";
 import {
   IAaveConfiguration,
@@ -50,6 +50,9 @@ export const AaveMarket: IAaveConfiguration = {
       USDT: "0xdac17f958d2ee523a2206206994597c13d831ec7",
       AAVE: "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
       EURS: "0xdb25f211ab05b1c97d595516f45794528a807ad8",
+    },
+    [eEtherlinkNetwork.etherlinkTest]: {
+      USDT: "0xD21B917D2f4a4a8E3D12892160BFFd8f4cd72d4F",
     },
     [eEthereumNetwork.rinkeby]: {
       AAVE: ZERO_ADDRESS,

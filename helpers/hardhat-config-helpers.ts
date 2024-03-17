@@ -4,6 +4,7 @@ import { HardhatNetworkForkingUserConfig } from "hardhat/types";
 import {
   iParamsPerNetwork,
   eEthereumNetwork,
+  eEtherlinkNetwork,
   eNetwork,
   ePolygonNetwork,
   eArbitrumNetwork,
@@ -102,6 +103,7 @@ export const NETWORKS_RPC_URL: iParamsPerNetwork<string> = {
 
 export const LIVE_NETWORKS: iParamsPerNetwork<boolean> = {
   [eEthereumNetwork.main]: true,
+  [eEtherlinkNetwork.etherlinkTest]: true, // TODO: change to mainnet
   [ePolygonNetwork.polygon]: true,
   [eArbitrumNetwork.arbitrum]: true,
   [eHarmonyNetwork.main]: true,
