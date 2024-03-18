@@ -5,7 +5,7 @@ import {
   IReserveParams,
   tEthereumAddress,
 } from "./types";
-import { BigNumberish } from "ethers";
+import { BigNumberish, ContractReceipt } from "ethers";
 import {
   ACL_MANAGER_ID,
   ATOKEN_IMPL_ID,
@@ -40,6 +40,16 @@ import {
 import { ZERO_ADDRESS } from "./constants";
 
 declare var hre: HardhatRuntimeEnvironment;
+
+enum TokenConfigId {
+  aToken = 0,
+  stableDebtToken = 1,
+  variableDebtToken = 2,
+};
+
+const getAddressFromEvent = (tx: ContractReceipt) => {
+  return '0x' + BigInt(tx!.events![1].data).toString(16);
+};
 
 export const initReservesByHelper = async (
   reservesParams: iMultiPoolsAssets<IReserveParams>,
@@ -209,23 +219,19 @@ export const initReservesByHelper = async (
       params: "0x10",
     };
 
-    // FIXME: initTokenProxy fails
-    // const aTokenTx = await waitForTx(
-    //   await configurator.initTokenProxy(aTokenToUse, reserveParams)
-    // );
-    // const stableDebtTokenTx = await waitForTx(
-    //   await configurator.initTokenProxy(stableDebtTokenImplementationAddress, reserveParams)
-    // );
-    // const variableDebtTokenTx = await waitForTx(
-    //   await configurator.initTokenProxy(variableDebtTokenImplementationAddress, reserveParams)
-    // );
+    const aTokenTx = await waitForTx(
+      await configurator.initTokenProxy(TokenConfigId.aToken, aTokenToUse, reserveParams)
+    );
+    const stableDebtTokenTx = await waitForTx(
+      await configurator.initTokenProxy(TokenConfigId.stableDebtToken, stableDebtTokenImplementationAddress, reserveParams)
+    );
+    const variableDebtTokenTx = await waitForTx(
+      await configurator.initTokenProxy(TokenConfigId.variableDebtToken, variableDebtTokenImplementationAddress, reserveParams)
+    );
 
-    // console.log('aTokenTx: ', aTokenTx);
-    // console.log('aTokenTx!.events: ',  aTokenTx!.events![0].args!.proxy);
-
-    // reserveParams.aTokenImpl = aTokenTx!.events![0].args!.proxy;
-    // reserveParams.stableDebtTokenImpl = stableDebtTokenTx!.events![0].args!.proxy;
-    // reserveParams.variableDebtTokenImpl = variableDebtTokenTx!.events![0].args!.proxy;
+    reserveParams.aTokenImpl = getAddressFromEvent(aTokenTx);
+    reserveParams.stableDebtTokenImpl = getAddressFromEvent(stableDebtTokenTx);
+    reserveParams.variableDebtTokenImpl = getAddressFromEvent(variableDebtTokenTx);
 
     initInputParams.push(reserveParams);
   }
