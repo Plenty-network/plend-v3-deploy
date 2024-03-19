@@ -102,7 +102,7 @@ export const chainlinkAggregatorProxy: Record<string, string> = {
   goerli: "0x60E4B131f0F219c72b0346675283E73888e4AB24",
   [eArbitrumNetwork.goerliNitro]: "0xC09e69E79106861dF5d289dA88349f10e2dc6b5C",
   [eEthereumNetwork.sepolia]: "0x6c60d915c7a646860dba836ffcb7f112b6cfdc76",
-  [eEtherlinkNetwork.etherlinkTest]: "0x0000000000000000000000000000000000000000",
+  [eEtherlinkNetwork.etherlinkTest]: "0xE06FE39f066562DBfE390167AE49D8Cb66e1F887",
 };
 
 export const chainlinkEthUsdAggregatorProxy: Record<string, string> = {
@@ -126,7 +126,7 @@ export const chainlinkEthUsdAggregatorProxy: Record<string, string> = {
   goerli: "0x60E4B131f0F219c72b0346675283E73888e4AB24",
   [eArbitrumNetwork.goerliNitro]: "0xC09e69E79106861dF5d289dA88349f10e2dc6b5C",
   [eEthereumNetwork.sepolia]: "0x6c60d915c7a646860dba836ffcb7f112b6cfdc76",
-  [eEtherlinkNetwork.etherlinkTest]: "0x0000000000000000000000000000000000000000",
+  [eEtherlinkNetwork.etherlinkTest]: "0xE06FE39f066562DBfE390167AE49D8Cb66e1F887",
 };
 
 export const ETHEREUM_SHORT_EXECUTOR =

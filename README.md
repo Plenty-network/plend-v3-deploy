@@ -33,7 +33,7 @@ To deploy Aave V3 in Etherlink network, copy the `.env.example` into a `.env` fi
 cp .env.example .env
 ```
 
-Edit the `.env` file to fill the environment variables `MNEMONIC`, `ALCHEMY_KEY` and `MARKET_NAME`. You can check all possible pool configurations in this [file](https://github.com/RSerhii/aave-v3-deploy/blob/main/helpers/market-config-helpers.ts#L100).
+Edit the `.env` file to fill the environment variables `MNEMONIC`, `ALCHEMY_KEY` and `MARKET_NAME`. You can check all possible pool configurations in this [file](https://github.com/aave/aave-v3-deploy/blob/09e91b80aff219da80f35a9fc55dafc5d698b574/helpers/market-config-helpers.ts#L95).
 
 Run the deployments scripts and specify which network & aave market configs you wish to deploy.
 

@@ -10,7 +10,6 @@ import {
   eArbitrumNetwork,
   eAvalancheNetwork,
   eEthereumNetwork,
-  eEtherlinkNetwork,
   eFantomNetwork,
   eHarmonyNetwork,
   eOptimismNetwork,
@@ -73,12 +72,6 @@ export default {
     kovan: getCommonNetworkConfig(eEthereumNetwork.kovan, 42),
     rinkeby: getCommonNetworkConfig(eEthereumNetwork.rinkeby, 4),
     ropsten: getCommonNetworkConfig(eEthereumNetwork.ropsten, 3),
-    etherlinkTest: {
-      url: "https://node.ghostnet.etherlink.com",
-      accounts: [""],
-      blockGasLimit: 30000000,
-      chainId: 128123,
-    },
     [ePolygonNetwork.polygon]: getCommonNetworkConfig(
       ePolygonNetwork.polygon,
       137
