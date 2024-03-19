@@ -119,8 +119,8 @@ export const loadPoolConfig = (configName: ConfigNames): PoolConfiguration => {
       return ArbitrumConfig;
     case ConfigNames.Ethereum:
       return EthereumV3Config;
-      case ConfigNames.Etherlink:
-        return EtherlinkV3Config;
+    case ConfigNames.Etherlink:
+      return EtherlinkV3Config;
     case ConfigNames.Base:
       return BaseConfig;
     default:
