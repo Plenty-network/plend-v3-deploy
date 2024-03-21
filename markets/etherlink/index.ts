@@ -1,6 +1,6 @@
 import { eEtherlinkNetwork, IAaveConfiguration } from "../../helpers/types";
 import { AaveMarket } from "../aave/index";
-import { strategyUSDT } from "../aave/reservesConfigs";
+import { strategyWBTC, strategyEUSD } from "../aave/reservesConfigs";
 
 // ----------------
 // POOL--SPECIFIC PARAMS
@@ -17,16 +17,19 @@ export const EtherlinkV3Market: IAaveConfiguration = {
   SymbolPrefix: "Xtz",
   ReserveAssets: {
     [eEtherlinkNetwork.etherlinkTest]: {
-      USDT: "0xD21B917D2f4a4a8E3D12892160BFFd8f4cd72d4F",
+      WBTC: "0x9630Bc8324aC759f684b615764178C993D290350",
+      EUSD: "0x1A71f491fb0Ef77F13F8f6d2a927dd4C969ECe4f",
     },
   },
   ChainlinkAggregator: {
     [eEtherlinkNetwork.etherlinkTest]: {
-      USDT: "0x0000000000000000000000000000000000000000",
+      WBTC: "0xfe66A25096128f57D3876D42cD2B4347a77784c2",
+      EUSD: "0x0000000000000000000000000000000000000000",
     },
   },
   ReservesConfig: {
-    USDT: strategyUSDT,
+    WBTC: strategyWBTC,
+    EUSD: strategyEUSD,
   },
   EModes: {},
   ReserveFactorTreasuryAddress: {},

@@ -287,6 +287,7 @@ export interface iAssetBase<T> {
   STAKE: T;
   xSUSHI: T;
   AVAX: T;
+  EUSD: T;
 }
 
 export type iAssetsWithoutETH<T> = Omit<iAssetBase<T>, "ETH">;
@@ -386,6 +387,7 @@ export enum TokenContractId {
   STAKE = "STAKE",
   xSUSHI = "xSUSHI",
   AVAX = "AVAX",
+  EUSD = "EUSD",
 }
 
 export interface IReserveParams

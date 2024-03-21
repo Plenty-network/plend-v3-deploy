@@ -16,6 +16,7 @@ import {
   strategyWETH,
   strategyUSDT,
   strategyEURS,
+  strategyEUSD,
 } from "./reservesConfigs";
 
 // ----------------
@@ -39,6 +40,7 @@ export const AaveMarket: IAaveConfiguration = {
     USDT: strategyUSDT,
     AAVE: strategyAAVE,
     EURS: strategyEURS,
+    EUSD: strategyEUSD,
   },
   ReserveAssets: {
     [eEthereumNetwork.main]: {
@@ -52,7 +54,8 @@ export const AaveMarket: IAaveConfiguration = {
       EURS: "0xdb25f211ab05b1c97d595516f45794528a807ad8",
     },
     [eEtherlinkNetwork.etherlinkTest]: {
-      USDT: "0xD21B917D2f4a4a8E3D12892160BFFd8f4cd72d4F",
+      EUSD: "0x1A71f491fb0Ef77F13F8f6d2a927dd4C969ECe4f",
+      WBTC: "0x9630Bc8324aC759f684b615764178C993D290350",
     },
     [eEthereumNetwork.rinkeby]: {
       AAVE: ZERO_ADDRESS,
