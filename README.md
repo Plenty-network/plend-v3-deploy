@@ -67,26 +67,19 @@ export const chainlinkEthUsdAggregatorProxy: Record<string, string> = {
 
 Add info about assets in *markets/etherlink/index.ts* :
 
-ReserveAssets: - assets used in the market.
-
-`EUSD: "0x1A71f491fb0Ef77F13F8f6d2a927dd4C969ECe4f"` - address of underlying ERC20 token.
-
-`EUSD: "0x0000000000000000000000000000000000000000"` - USD price provider. If not set fallback oracle will be used.
-
-`strategyEUSD` - strategy that describes rules and restrictions for borrowing, credit and asset management.
 ```
-  ReserveAssets: {
+  ReserveAssets: {                                          // assets used in the market.
     [eEtherlinkNetwork.etherlinkTest]: {
-      EUSD: "0x1A71f491fb0Ef77F13F8f6d2a927dd4C969ECe4f",
+      EUSD: "0x1A71f491fb0Ef77F13F8f6d2a927dd4C969ECe4f",   // address of underlying ERC20 token.
     },
   },
   ChainlinkAggregator: {
     [eEtherlinkNetwork.etherlinkTest]: {
-      EUSD: "0x0000000000000000000000000000000000000000",
+      EUSD: "0x0000000000000000000000000000000000000000",   //  USD price provider. If not set fallback oracle will be used.
     },
   },
   ReservesConfig: {
-    EUSD: strategyEUSD,
+    EUSD: strategyEUSD,     // strategy that describes rules and restrictions for borrowing, credit and asset management
   },
 ```
 
