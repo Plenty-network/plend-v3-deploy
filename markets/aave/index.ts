@@ -1,4 +1,4 @@
-import { eOptimismNetwork } from "./../../helpers/types";
+import { eEtherlinkNetwork, eOptimismNetwork } from "./../../helpers/types";
 import { ZERO_ADDRESS } from "../../helpers";
 import {
   IAaveConfiguration,

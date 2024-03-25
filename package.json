@@ -20,7 +20,7 @@
   "main": "dist/helpers/index.js",
   "devDependencies": {
     "@aave/aave-token": "^1.0.4",
-    "@aave/core-v3": "^1.19.3",
+    "@aave/core-v3": "github:RSerhii/aave-v3-core#5c5d7401fe6816888d082078b826c1fb2e8b4880",
     "@aave/periphery-v3": "^2.5.2",
     "@aave/safety-module": "^1.0.3",
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.5",
@@ -78,6 +78,7 @@
     "url": "git://github.com/aave/aave-v3-deploy"
   },
   "dependencies": {
-    "@openzeppelin/defender-relay-client": "^1.54.1"
+    "@openzeppelin/defender-relay-client": "^1.54.1",
+    "web3": "^4.6.0"
   }
 }

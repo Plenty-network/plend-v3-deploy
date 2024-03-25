@@ -14,6 +14,7 @@ import {
 } from "./types";
 import AaveMarket from "../markets/aave";
 import EthereumV3Config from "../markets/ethereum";
+import EtherlinkV3Config from "../markets/etherlink";
 import AaveTestMarket from "../markets/test";
 import HarmonyMarket from "../markets/harmony";
 import AvalancheMarket from "../markets/avalanche";
@@ -50,6 +51,7 @@ export enum ConfigNames {
   Optimistic = "Optimistic",
   Arbitrum = "Arbitrum",
   Ethereum = "Ethereum",
+  Etherlink = "Etherlink",
   Base = "Base",
   baseGoerli = "base-goerli",
 }
@@ -117,6 +119,8 @@ export const loadPoolConfig = (configName: ConfigNames): PoolConfiguration => {
       return ArbitrumConfig;
     case ConfigNames.Ethereum:
       return EthereumV3Config;
+    case ConfigNames.Etherlink:
+      return EtherlinkV3Config;
     case ConfigNames.Base:
       return BaseConfig;
     default:

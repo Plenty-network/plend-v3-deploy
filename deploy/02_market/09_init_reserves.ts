@@ -101,7 +101,6 @@ const func: DeployFunction = async function ({
   await savePoolTokens(reservesAddresses, dataProvider.address);
 
   deployments.log(`[Deployment] Configured all reserves`);
-  return true;
 };
 
 // This script can only be run successfully once per market, core version, and network

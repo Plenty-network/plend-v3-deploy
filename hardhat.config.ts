@@ -15,6 +15,7 @@ import {
   eOptimismNetwork,
   ePolygonNetwork,
   eBaseNetwork,
+  eEtherlinkNetwork,
 } from "./helpers/types";
 import { DEFAULT_NAMED_ACCOUNTS } from "./helpers/constants";
 
@@ -44,8 +45,8 @@ export default {
       {
         version: "0.8.10",
         settings: {
-          optimizer: { enabled: true, runs: 100_000 },
-          evmVersion: "berlin",
+          optimizer: { enabled: true, runs: 10000 },
+          evmVersion: "london",
         },
       },
       {
@@ -126,6 +127,10 @@ export default {
     [eBaseNetwork.baseGoerli]: getCommonNetworkConfig(
       eBaseNetwork.baseGoerli,
       84531
+    ),
+    [eEtherlinkNetwork.etherlinkTest]: getCommonNetworkConfig(
+      eEtherlinkNetwork.etherlinkTest,
+      128123
     ),
   },
   namedAccounts: {

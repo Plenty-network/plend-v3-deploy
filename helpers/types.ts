@@ -10,6 +10,7 @@ export enum eTenderly {
 
 export type eNetwork =
   | eEthereumNetwork
+  | eEtherlinkNetwork
   | ePolygonNetwork
   | eXDaiNetwork
   | eAvalancheNetwork
@@ -43,6 +44,10 @@ export enum eEthereumNetwork {
   rinkeby = "rinkeby",
   goerli = "goerli",
   sepolia = "sepolia",
+}
+
+export enum eEtherlinkNetwork {
+  etherlinkTest = "etherlinkTest"
 }
 
 export enum eBaseNetwork {
@@ -282,6 +287,7 @@ export interface iAssetBase<T> {
   STAKE: T;
   xSUSHI: T;
   AVAX: T;
+  EUSD: T;
 }
 
 export type iAssetsWithoutETH<T> = Omit<iAssetBase<T>, "ETH">;
@@ -381,6 +387,7 @@ export enum TokenContractId {
   STAKE = "STAKE",
   xSUSHI = "xSUSHI",
   AVAX = "AVAX",
+  EUSD = "EUSD",
 }
 
 export interface IReserveParams
@@ -446,6 +453,10 @@ export interface iEthereumParamsPerNetwork<T> {
   [eEthereumNetwork.ropsten]: T;
   [eEthereumNetwork.main]: T;
   [eEthereumNetwork.tenderly]: T;
+}
+
+export interface iEtherlinkParamsPernetwork<T> {
+  [eEtherlinkNetwork.etherlinkTest]: T;
 }
 
 export interface iPolygonParamsPerNetwork<T> {
