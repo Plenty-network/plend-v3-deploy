@@ -33,59 +33,19 @@ To deploy Aave V3 in Etherlink network, copy the `.env.example` into a `.env` fi
 cp .env.example .env
 ```
 
-Edit the `.env` file to fill the environment variables `MNEMONIC`, `ALCHEMY_KEY` and `MARKET_NAME`. You can check all possible pool configurations in this [file](https://github.com/aave/aave-v3-deploy/blob/09e91b80aff219da80f35a9fc55dafc5d698b574/helpers/market-config-helpers.ts#L95).
+Edit the `.env` file to fill the environment variables `MNEMONIC`, `PRIVATE_KEY` and `MARKET_NAME`. You can check all possible pool configurations in this [file](https://github.com/aave/aave-v3-deploy/blob/09e91b80aff219da80f35a9fc55dafc5d698b574/helpers/market-config-helpers.ts#L95).
 
 Run the deployments scripts and specify which network & aave market configs you wish to deploy.
 
 ```
-HARDHAT_NETWORK=<your network> npx hardhat deploy
+HARDHAT_NETWORK=etherlinkTest npx hardhat deploy
 ```
 
 
 ## How to add new market
 
-### 1. Adding a market configuration
-In the *markets* folder create a new folder with your market. The *index.ts* file will define market configurations: assets, their addresses, wrapped native token etc.
 
-In *market-config-helpers.ts* add a case that will retrieve the configuration of the added market.
-```
-export const loadPoolConfig = (configName: ConfigNames): PoolConfiguration => {
-  switch (configName) {
-    case ConfigNames.Etherlink:
-      return EtherlinkV3Config;
-  ...
-}
-```
-
-If your market's network is LIVE, it should be added to helpers/hardhat-config-helpers.ts:
-```
-export const LIVE_NETWORKS: iParamsPerNetwork<boolean> = {
-  [eEtherlinkNetwork.etherlinkTest]: true,
-};
-```
-
-Add your market to the eNetworks and initialize your market's list of networks in *helpers/types.ts* :
-
-```
-export type eNetwork =
-  | eEthereumNetwork
-  | eEtherlinkNetwork
-  ...
-
-...
-
-export enum eEtherlinkNetwork {
-  etherlinkTest = "etherlinkTest"
-}
-
-...
-
-export interface iEtherlinkParamsPernetwork<T> {
-  [eEtherlinkNetwork.etherlinkTest]: T;
-}
-```
-
-### 2. Adding market constants
+### 1. Adding market constants
 In the *helpers/constants.ts* file, import the created marketplace and add the wrapped native token:
 ```
 export const WRAPPED_NATIVE_TOKEN_PER_NETWORK: { [network: string]: string } = {
@@ -96,15 +56,15 @@ export const WRAPPED_NATIVE_TOKEN_PER_NETWORK: { [network: string]: string } = {
 
 ```
 
-Chainlink Aggregators:
+Redstone Aggregator:
 ```
 export const chainlinkAggregatorProxy: Record<string, string> = {
-  [eEtherlinkNetwork.etherlinkTest]: "0x0000000000000000000000000000000000000000",
+  [eEtherlinkNetwork.etherlinkTest]: "0xE06FE39f066562DBfE390167AE49D8Cb66e1F887",
 };
 
 
 export const chainlinkEthUsdAggregatorProxy: Record<string, string> = {
-  [eEtherlinkNetwork.etherlinkTest]: "0x0000000000000000000000000000000000000000",
+  [eEtherlinkNetwork.etherlinkTest]: "0xE06FE39f066562DBfE390167AE49D8Cb66e1F887",
 };
 ```
 ReserveAssets:
@@ -119,7 +79,7 @@ ReserveAssets:
   },
 ```
 
-### 3. Integration with Aave
+### 2. Integration with Aave
 In the Aave market configuration file (*markets/aave/index.ts*), add the addresses of your market's network reserve assets:
 ```
 ReserveAssets: {
@@ -130,6 +90,17 @@ ReserveAssets: {
 ...
 };
 ```
+
+### 3. Adding new token to the deployed market
+To add new token, go to the market configuration (*markets/etherlink/index.ts*). Import the token from *reservesConfigs.ts* (adding it beforehand if it was not previously in the list of assets).
+Add token information to ReserveAssets, ChainlinkAggregator and ReservesConfig.
+
+Run script again:
+
+```
+HARDHAT_NETWORK=etherlinkTest npx hardhat deploy
+```
+
 
 ## Project Structure
 

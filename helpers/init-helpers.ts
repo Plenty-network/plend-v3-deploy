@@ -84,7 +84,7 @@ export const initReservesByHelper = async (
   )) as any as Pool;
 
   // CHUNK CONFIGURATION
-  const initChunks = 1;
+  const initChunks = 3;
 
   // Initialize variables for future reserves initialization
   let reserveTokens: string[] = [];

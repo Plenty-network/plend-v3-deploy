@@ -13,6 +13,7 @@ services:
       - $HOME/.tenderly/config.yaml:/root/.tenderly/config.yaml
     environment:
       MNEMONIC: ${MNEMONIC}
+      PRIVATE_KEY: ${PRIVATE_KEY}
       ETHERSCAN_KEY: ${ETHERSCAN_KEY}
       INFURA_KEY: ${INFURA_KEY}
       ETHERSCAN_NETWORK: ${ETHERSCAN_NETWORK}

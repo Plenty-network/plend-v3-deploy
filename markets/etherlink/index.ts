@@ -1,6 +1,7 @@
 import { eEtherlinkNetwork, IAaveConfiguration } from "../../helpers/types";
 import { AaveMarket } from "../aave/index";
-import { strategyWBTC, strategyEUSD } from "../aave/reservesConfigs";
+import { strategyWBTC } from "../aave/reservesConfigs";
+import { strategyEUSD } from "./reservesConfigs";
 
 // ----------------
 // POOL--SPECIFIC PARAMS
