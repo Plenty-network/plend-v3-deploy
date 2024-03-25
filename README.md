@@ -7,9 +7,6 @@ This Node.js repository contains the configuration and deployment scripts for th
 ## Requirements
 
 - Node.js >= 16
-- Alchemy key
-  - If you use a custom RPC node, you can change the default RPC provider URL at [./helpers/hardhat-config-helpers.ts:25](./helpers/hardhat-config-helpers.ts).
-- Etherscan API key _(Optional)_
 
 ## Getting Started
 
@@ -56,7 +53,7 @@ export const WRAPPED_NATIVE_TOKEN_PER_NETWORK: { [network: string]: string } = {
 
 ```
 
-Redstone Aggregator:
+Redstone Aggregator: - USD price provider for native token
 ```
 export const chainlinkAggregatorProxy: Record<string, string> = {
   [eEtherlinkNetwork.etherlinkTest]: "0xE06FE39f066562DBfE390167AE49D8Cb66e1F887",
@@ -67,31 +64,34 @@ export const chainlinkEthUsdAggregatorProxy: Record<string, string> = {
   [eEtherlinkNetwork.etherlinkTest]: "0xE06FE39f066562DBfE390167AE49D8Cb66e1F887",
 };
 ```
-ReserveAssets:
+
+Add info about assets in *markets/etherlink/index.ts* :
+
+ReserveAssets: - assets used in the market.
+
+`EUSD: "0x1A71f491fb0Ef77F13F8f6d2a927dd4C969ECe4f"` - address of underlying ERC20 token.
+
+`EUSD: "0x0000000000000000000000000000000000000000"` - USD price provider. If not set fallback oracle will be used.
+
+`strategyEUSD` - strategy that describes rules and restrictions for borrowing, credit and asset management.
 ```
   ReserveAssets: {
     [eEtherlinkNetwork.etherlinkTest]: {
-      USDT: "0xD21B917D2f4a4a8E3D12892160BFFd8f4cd72d4F",
+      EUSD: "0x1A71f491fb0Ef77F13F8f6d2a927dd4C969ECe4f",
+    },
+  },
+  ChainlinkAggregator: {
+    [eEtherlinkNetwork.etherlinkTest]: {
+      EUSD: "0x0000000000000000000000000000000000000000",
     },
   },
   ReservesConfig: {
-    USDT: strategyUSDT,
+    EUSD: strategyEUSD,
   },
 ```
 
-### 2. Integration with Aave
-In the Aave market configuration file (*markets/aave/index.ts*), add the addresses of your market's network reserve assets:
-```
-ReserveAssets: {
-...
-    [eEtherlinkNetwork.etherlinkTest]: {
-      USDT: "0xD21B917D2f4a4a8E3D12892160BFFd8f4cd72d4F",
-    },
-...
-};
-```
 
-### 3. Adding new token to the deployed market
+### 2. Adding new token to the deployed market
 To add new token, go to the market configuration (*markets/etherlink/index.ts*). Import the token from *reservesConfigs.ts* (adding it beforehand if it was not previously in the list of assets).
 Add token information to ReserveAssets, ChainlinkAggregator and ReservesConfig.
 
@@ -100,6 +100,15 @@ Run script again:
 ```
 HARDHAT_NETWORK=etherlinkTest npx hardhat deploy
 ```
+
+
+### 3. Setting prices in Fallback Oracle
+In the Deployments list, find the FallbackOracle-Etherlink address and open it in Etherlink BlockExplorer (https://testnet-explorer.etherlink.com).
+
+Go to Contract -> Write Contract and select the "authorizeSybil" method. Insert the wallet address and make the transaction.
+
+FallbackOracle returns the price in dollars($).
+Select the "submitPrices" method and set the price where 1 USD = 100,000,000. Complete the transaction.
 
 
 ## Project Structure
