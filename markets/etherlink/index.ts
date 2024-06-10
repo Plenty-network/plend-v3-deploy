@@ -31,7 +31,7 @@ export const EtherlinkV3Market: IAaveConfiguration = {
     },
   },
   L2PoolEnabled: {
-    [eEtherlinkNetwork.etherlinkTestnet]: true,
+    [eEtherlinkNetwork.etherlinkTestnet]: false,
   },
   ReservesConfig: {
     WBTC: strategyWBTC,

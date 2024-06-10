@@ -61,11 +61,12 @@ const func: DeployFunction = async function ({
       strategyData.baseStableRateOffset,
       strategyData.stableRateExcessOffset,
       strategyData.optimalStableToTotalDebtRatio,
+      strategyData.maxBorrowRate
     ];
     await deployments.deploy(`ReserveStrategy-${strategyData.name}`, {
       from: deployer,
       args: args,
-      contract: "DefaultReserveInterestRateStrategy",
+      contract: "InterestRateStrategyWithVariableRateCap",
       log: true,
     });
   }

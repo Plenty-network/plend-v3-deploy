@@ -161,6 +161,7 @@ export default {
       "@aave/core-v3/contracts/protocol/pool/L2Pool.sol",
       "@aave/core-v3/contracts/protocol/pool/PoolConfigurator.sol",
       "@aave/core-v3/contracts/protocol/pool/DefaultReserveInterestRateStrategy.sol",
+      "@aave/core-v3/contracts/protocol/pool/InterestRateStrategyWithVariableRateCap.sol",
       "@aave/core-v3/contracts/protocol/libraries/aave-upgradeability/InitializableImmutableAdminUpgradeabilityProxy.sol",
       "@aave/core-v3/contracts/dependencies/openzeppelin/upgradeability/InitializableAdminUpgradeabilityProxy.sol",
       "@aave/core-v3/contracts/deployments/ReservesSetupHelper.sol",

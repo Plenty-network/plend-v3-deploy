@@ -14,7 +14,10 @@ import { FORK } from "../../helpers/hardhat-config-helpers";
 import { diff, formatters } from "jsondiffpatch";
 import chalk from "chalk";
 import { exit } from "process";
-import { DefaultReserveInterestRateStrategy } from "../../typechain";
+import {
+  DefaultReserveInterestRateStrategy,
+  InterestRateStrategyWithVariableRateCap,
+} from "../../typechain";
 
 // This task will review the InterestRate strategy of each reserve from a Market passed by environment variable MARKET_NAME.
 // If the fix flag is present it will change the current strategy of the reserve to the desired strategy from market configuration.
@@ -76,10 +79,10 @@ task(`review-rate-strategies`, ``)
         const expectedStrategy: IInterestRateStrategyParams =
           poolConfig.ReservesConfig[normalizedSymbol.toUpperCase()].strategy;
         const onChainStrategy = (await hre.ethers.getContractAt(
-          "DefaultReserveInterestRateStrategy",
+          "InterestRateStrategyWithVariableRateCap",
           await dataProvider.getInterestRateStrategyAddress(tokenAddress),
           await getFirstSigner()
-        )) as DefaultReserveInterestRateStrategy;
+        )) as InterestRateStrategyWithVariableRateCap;
         const currentStrategy: IInterestRateStrategyParams = {
           name: expectedStrategy.name,
           optimalUsageRatio: (
@@ -110,6 +113,9 @@ task(`review-rate-strategies`, ``)
           ).toString(),
           optimalStableToTotalDebtRatio: await (
             await onChainStrategy.OPTIMAL_STABLE_TO_TOTAL_DEBT_RATIO()
+          ).toString(),
+          maxBorrowRate: await (
+            await onChainStrategy.MAX_VARIABLE_BORROW_RATE()
           ).toString(),
         };
 

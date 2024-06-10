@@ -18,6 +18,7 @@ import {
   rateStrategyStableOne,
   rateStrategyStableTwo,
   rateStrategyVolatileOne,
+  rateStrategyVolatileTwo,
 } from "./rateStrategies";
 // ----------------
 // PROTOCOL GLOBAL PARAMS
@@ -179,6 +180,7 @@ export const CommonsConfig: ICommonConfiguration = {
   },
   RateStrategies: {
     rateStrategyVolatileOne,
+    rateStrategyVolatileTwo,
     rateStrategyStableOne,
     rateStrategyStableTwo,
   },
