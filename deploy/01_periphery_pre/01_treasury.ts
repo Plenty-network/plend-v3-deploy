@@ -48,7 +48,8 @@ const func: DeployFunction = async function ({
     ReserveFactorTreasuryAddress,
     network
   );
-  let treasuryOwner = POOL_ADMIN[network];
+  let treasuryOwner = deployer;
+  //  POOL_ADMIN[network];
 
   if (isTestnetMarket(await loadPoolConfig(MARKET_NAME))) {
     treasuryOwner = deployer;

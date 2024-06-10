@@ -12,6 +12,7 @@ import {
   eFantomNetwork,
   eOptimismNetwork,
   eBaseNetwork,
+  eEtherlinkNetwork,
 } from "./types";
 
 require("dotenv").config();
@@ -27,6 +28,7 @@ export const FORK_BLOCK_NUMBER = process.env.FORK_BLOCK_NUMBER
   : 0;
 const MNEMONIC_PATH = "m/44'/60'/0'/0";
 const MNEMONIC = process.env.MNEMONIC || "";
+const PRIVATE_KEY = process.env.PRIVATE_KEY || "";
 
 export const getAlchemyKey = (net: eNetwork) => {
   switch (net) {
@@ -98,6 +100,7 @@ export const NETWORKS_RPC_URL: iParamsPerNetwork<string> = {
   [eBaseNetwork.base]: `https://base-mainnet.g.alchemy.com/v2/${getAlchemyKey(
     eBaseNetwork.base
   )}`,
+  [eEtherlinkNetwork.etherlinkTestnet]: "https://node.ghostnet.etherlink.com",
 };
 
 export const LIVE_NETWORKS: iParamsPerNetwork<boolean> = {
@@ -109,6 +112,7 @@ export const LIVE_NETWORKS: iParamsPerNetwork<boolean> = {
   [eFantomNetwork.main]: true,
   [eOptimismNetwork.main]: true,
   [eBaseNetwork.base]: true,
+  [eEtherlinkNetwork.etherlinkTestnet]: true,
 };
 
 const GAS_PRICE_PER_NET: iParamsPerNetwork<string | number> = {
@@ -149,14 +153,16 @@ export const getCommonNetworkConfig = (
   blockGasLimit: DEFAULT_BLOCK_GAS_LIMIT,
   chainId,
   gasPrice: GAS_PRICE_PER_NET[networkName] || undefined,
-  ...((!!MNEMONICS[networkName] || !!MNEMONIC) && {
-    accounts: {
-      mnemonic: MNEMONICS[networkName] || MNEMONIC,
-      path: MNEMONIC_PATH,
-      initialIndex: 0,
-      count: 10,
-    },
-  }),
+  ...(PRIVATE_KEY
+    ? { accounts: [PRIVATE_KEY] }
+    : (!!MNEMONICS[networkName] || !!MNEMONIC) && {
+        accounts: {
+          mnemonic: MNEMONICS[networkName] || MNEMONIC,
+          path: MNEMONIC_PATH,
+          initialIndex: 0,
+          count: 10,
+        },
+      }),
   live: LIVE_NETWORKS[networkName] || false,
 });
 

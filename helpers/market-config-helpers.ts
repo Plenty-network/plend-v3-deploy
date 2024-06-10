@@ -36,7 +36,7 @@ import {
 import { ZERO_ADDRESS } from "./constants";
 import { getTestnetReserveAddressFromSymbol, POOL_DATA_PROVIDER } from ".";
 import { ENABLE_REWARDS } from "./env";
-
+import EtherlinkV3Market from "../markets/etherlink";
 declare var hre: HardhatRuntimeEnvironment;
 
 export enum ConfigNames {
@@ -52,6 +52,7 @@ export enum ConfigNames {
   Ethereum = "Ethereum",
   Base = "Base",
   baseGoerli = "base-goerli",
+  Etherlink = "Etherlink",
 }
 
 export const getParamPerNetwork = <T>(
@@ -119,6 +120,8 @@ export const loadPoolConfig = (configName: ConfigNames): PoolConfiguration => {
       return EthereumV3Config;
     case ConfigNames.Base:
       return BaseConfig;
+    case ConfigNames.Etherlink:
+      return EtherlinkV3Market;
     default:
       throw new Error(
         `Unsupported pool configuration: ${configName} is not one of the supported configs ${Object.values(
